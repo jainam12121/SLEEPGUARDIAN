@@ -1,0 +1,105 @@
+/* CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  body{
+   
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('d.jpg');  /* Replace with the correct path */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;  /* Ensure the body takes up the full height of the viewport */
+    color: #fff;
+   
+  }
+  
+  .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #333;
+    color: white;
+    height: 60px;
+  }
+  
+  .logo {
+    margin-left: 20px;
+  }
+  
+  .logo img {
+    height: 40px;
+  }
+  
+  .menu {
+    list-style: none;
+    display: flex;
+    margin-right: 20px;
+  }
+  
+  .menu li {
+    margin: 0 10px;
+  }
+  
+  .menu li a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+  }
+  
+  .menu li a:hover {
+    background-color: #555;
+  }
+  
+  .dropdown {
+    position: relative;
+  }
+  
+  .submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #333;
+    list-style: none;
+  }
+  
+  .submenu li a {
+    display: block;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+  }
+  
+  .submenu li a:hover {
+    background-color: #555;
+  }
+  
+  .dropdown:hover .submenu {
+    display: block;
+  }
+
+
+  .container {
+    width: 80%;
+    margin: 0 auto;
+ }
+ 
+
+  section {
+    margin: 40px 0;
+ }
+ 
+ footer {
+    background-color: #333;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    margin-top: 75vh;
+ }
+  

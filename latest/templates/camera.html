@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.4/howler.min.js"></script>  
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <title>Drowsiness Detection Dashboard</title>
+  <style>
+    body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #1a1a1a;
+  color: #fff;
+}
+
+header {
+  background-color: #333;
+  color: white;
+  padding: 15px;
+  text-align: center;
+}
+
+#dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 20px;
+}
+
+.widget {
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  margin: 15px;
+  padding: 20px;
+  width: calc(50% - 30px); /* Adjusted the width to fit two widgets per row */
+  box-sizing: border-box; /* Added box-sizing to include padding in the width calculation */
+}
+.startBtn{
+  /* float: right; Aligns the button to the right */
+    /* background-color: #333; */
+    color: white;
+    padding:  10px  20px; /* Padding size */
+    background-color: transparent;
+    position: fixed; /* Fixes the button position */
+    top:  30px; /* Positions the button  10px from the top of the viewport */
+    right:  10px; /* Positions the button  10px from the right edge of the viewport */
+    z-index:  1000; /* Ensures the button stays above other content */
+    background-clip: padding-box; /* Apply background only to the padding area */
+    box-shadow: inset  0  0  0  20px #1a1a1a;
+    text-decoration: none;
+}
+
+.widget h2 {
+  color: #fff;
+  font-size: 1.5rem;
+}
+
+.widget p {
+  color: #bbb;
+}
+
+#cameraContainer {
+  /* width: 100%; Changed width to 100% for responsiveness */
+  /* aspect-ratio: 1/2; Added aspect-ratio for a square container */
+  overflow: hidden;
+  margin-bottom: 20px;
+  border-radius: 8px;
+  height:350px;
+  width: 500px;
+}
+
+/* #cameraFeed {
+  width:500px ;
+  height: 500px;
+  object-fit: cover;
+} */
+
+#alertSection {
+  background-color: #ff3333;
+  color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+
+#widget2 {
+  position: relative;
+  margin-right: 0; /* Removed margin-right */
+  margin-bottom: 20px; /* Adjusted margin-bottom for spacing */
+}
+/* .logout-button {
+    float: right; 
+   
+    overflow: hidden;
+    
+    text-decoration: none;
+    padding:20px;
+    
+    top:  10px;
+    background-color: #333;
+  color: white;
+  padding: 15px;
+  
+  } */
+  .modal show{
+    position: relative;
+    top:  110px;
+    width:  320px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-family: "Source Sans Pro", sans-serif;
+}
+.flash-message{
+	position: fixed;
+	bottom: 600px;
+	left: 30%;
+	width: 40%;
+	background-color: #28a745; /* Green background */
+	color: white; /* White text */
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+	z-index: 100;
+
+
+}
+.modal:empty {
+	display: none;
+  }
+  .logout-button {
+  
+  top:  30px;
+  right: 30px;
+  z-index:  3000;
+  background-color:transparent ; /* Explicitly set to transparent */
+  border-radius:  5px;
+  padding:  10px  20px;
+  color:rgb(255, 255, 255);
+  text-decoration: none;
+  box-shadow: none; /* Remove any box shadows */
+  transition: box-shadow  0.3s ease-in-out;
+  border: none;
+  position:absolute;
+}
+
+.logout-button:hover {
+  
+    box-shadow: inset  0  0  0  30px #1a1a1a;
+    background-color: white;
+    color:rgb(255, 255, 255);
+}
+.btn-primary {
+ 
+  top:  30px;
+  right:  130px;
+  z-index:  3000;
+  background-color:transparent ; /* Explicitly set to transparent */
+  border-radius:  5px;
+  padding:  10px  20px;
+  color: white;
+  text-decoration: none;
+  box-shadow: none; /* Remove any box shadows */
+  transition: box-shadow  0.3s ease-in-out;
+  border: none;
+  align-items: right;
+  position:absolute;
+}
+.btn-primary:hover { box-shadow: inset  0  0  0  30px #1a1a1a;  background-color: white;}
+
+  </style>
+    
+</head>
+<body>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <div id="myModal" class="modal show">
+        <div class="flash-message">
+            {% for message in messages %}
+              {{ message }}
+            {% endfor %}
+        </div>
+    </div>
+  {% endif %}
+{% endwith %}
+  <a href="/" class="logout-button">LOGOUT</a>
+  <header>
+    <h1> Dashboard</h1>
+    <p>
+      <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseWidthExample" aria-expanded="false" aria-controls="collapseWidthExample">
+        ACCOUNT
+      </button>
+    </p>
+    <div style="min-height: 0%;">
+      <div class="collapse collapse-horizontal" id="collapseWidthExample">
+
+        <div class="card card-body"id="collapseAbovePage" style="width: 300px; background-color: #2c2c2c;">
+          
+            {% if user_type == '1' %}
+            <!-- Display individual data here -->
+            <h2>Name : {{ data.ind_name }}</h2>
+            <p>Username: {{ data.username }}</p>
+            <p>Email: {{ data.ind_email }}</p>
+            <p>Gender: {{ data.ind_gender }}</p>
+            <p>Date of Birth: {{ data.ind_DOB }}</p>
+            <p>Contact: {{ data.ind_cont }}</p>
+            <p>Address: {{ data.ind_ADDRESS }}</p>
+            <p>organisation name: {{data.org_names}}</p>
+            <!-- <img class="image" src="{{ data.ind_identity }}"> Display individual image here -->
+            {% else %}
+            <!-- Display organisation data here -->
+            <h2>Organization Name: {{ data.org_name }}</h2>
+      <p>Username: {{ data.username }}</p>
+      <p>Email: {{ data.org_email }}</p>
+      <p>Address: {{ data.org_address }}</p>
+      <p>Contact: {{ data.org_cont }}</p>
+      <!-- <img class="image" src="{{ data.org_identity }}">  -->
+            {% endif %}
+           
+        </div>
+      </div>
+     
+    </div>
+  </header>
+ 
+  <div id="dashboard">
+    <div class="widget" id="widget1">
+      <h2>NUMBER OF FACES</h2>
+      <p id="numFaces" class="myStyle">Number of faces detected: </p>
+    </div>
+    <div class="widget" id="widget2">
+      <h2>Eye & Mouth expect Ratio</h2>
+      <p id="earValue"></p>
+      <p id="marValue"></p>
+    </div>
+    <div class="widget" id="alertWidget">
+      <h2>Alert Section</h2>
+      <div id="drowsinessMessage" class="noDrowsiness">No drowsiness detected.</div>
+    </div>
+    <div class="widget" id="cameraWidget">
+      <h2>Camera Feed</h2>
+      <button id="startBtn">Open Camera</button>
+      <div id="cameraContainer">
+        <video id="videoCam" autoplay playsinline muted></video>
+      </div>
+    <!-- <div class="widget" id="widget2">
+      <h2>Eye & Mouth expect Ratio</h2>
+      <p id="earValue"></p>
+      <p id="marValue"></p>
+    </div>
+    <div class="widget" id="alertWidget">
+      <h2>Alert Section</h2>
+      <div id="drowsinessMessage" class="noDrowsiness">No drowsiness detected.</div>
+    </div> -->
+    <!-- ... (rest of your widgets) ... -->
+  </div>
+  <script>
+     
+        // Function to remove flash message
+        window.onclick = function(event) {
+        if (event.target != modal) {
+          modal.style.display = "none";
+        }
+      }
+      
+      var modal = document.getElementById("myModal");
+      var span = document.getElementsByClassName("close")[0];
+      // When the user visits the page, check if there's a flash message
+      window.onload = function() {
+        modal.style.display = "block";
+      
+        setTimeout(function() {
+          modal.style.display = "none";
+        }, 3000);
+      }
+    
+     let webcamStream = null;
+       let isWebcamOn = false;
+       const video = document.getElementById('videoCam');
+       let isProcessingFrame = false;
+       let delay = 3000;
+       document.getElementById('startBtn').addEventListener('click', function(event) {
+           event.preventDefault();
+           toggleWebcam();
+       });
+   
+       function toggleWebcam() {
+           let All_mediaDevices = navigator.mediaDevices;
+   
+           if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
+               console.log("getUserMedia() not supported.");
+               return;
+           }
+   
+           if (isWebcamOn) {
+               webcamStream.getTracks().forEach(track => track.stop());
+               isWebcamOn = false;
+           } else {
+               All_mediaDevices.getUserMedia({ audio: true, video: true })
+                 .then(function(vidStream) {
+                     video.srcObject = vidStream;
+                     video.onloadedmetadata = function(e) {
+                         video.play();
+                         isWebcamOn = true;
+                         sendFrameToServer();
+                     };
+                     webcamStream = vidStream;
+                 })
+                 .catch(function(e) {
+                     console.log(e.name + ": " + e.message);
+                 });
+           }
+       }
+       function delayProcessing() {
+        setTimeout(function() {
+            sendFrameToServer();
+        }, delay);
+    }
+
+       
+       function sendFrameToServer() {
+        if (!isWebcamOn || isProcessingFrame) return; // Do not send if webcam is off
+        isProcessingFrame = true;
+           var canvas = document.createElement('canvas');
+           canvas.width = video.videoWidth;
+           canvas.height = video.videoHeight;
+           canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+           var dataURL = canvas.toDataURL('image/jpeg');
+   
+           fetch('/process_frame', {
+               method: 'POST',
+               headers: {
+                 'Content-Type': 'application/json',
+               },
+               body: JSON.stringify({ image: dataURL })
+           })
+           .then(response => {
+ if (!response.ok) {
+   throw new Error(`HTTP error! status: ${response.status}`);
+ }
+ return response.json();
+})
+           
+.then(data => {
+    console.log('Received data:', data);
+   if (data.drowsiness_detected) {
+       document.getElementById('drowsinessMessage').innerText = 'Drowsiness Alert!';
+       document.getElementById('drowsinessMessage').className = 'drowsinessDetected';
+       var sound = new Howl({
+      src: ['/static/emergency-alarm-with-reverb-29431.mp3']
+    });
+
+sound.play();
+
+   } else {
+       document.getElementById('drowsinessMessage').innerText = 'No drowsiness detected.';
+       document.getElementById('drowsinessMessage').className = 'noDrowsiness';
+   }
+   console.log('EAR:', data.ears);
+   console.log('MAR:', data.mars);
+   if ('num_faces' in data) {
+       document.getElementById('numFaces').innerText = 'Number of faces detected: ' + data.num_faces;
+       document.getElementById('numFaces').classList.add('myStyle');
+   } else {
+       document.getElementById('numFaces').innerText = 'Number of faces detected: N/A';
+       document.getElementById('numFaces').classList.add('myStyle');
+   }
+   document.getElementById('earValue').innerText = 'Last EAR: ' + (data.ears && data.ears.length > 0 ? data.ears[data.ears.length - 1] : 'N/A');
+   document.getElementById('earValue').classList.add('myStyle');
+document.getElementById('marValue').innerText = 'Last MAR: ' + (data.mars && data.mars.length > 0 ? data.mars[data.mars.length - 1] : 'N/A');
+document.getElementById('marValue').classList.add('myStyle');
+
+
+   isProcessingFrame = false; // Set flag to false when processing is done
+   delayProcessing();
+})
+;
+ // Example initialization if using Bootstrap  5
+var collapseElement = document.getElementById('collapseAbovePage');
+var bsCollapse = new bootstrap.Collapse(collapseElement);
+
+document.addEventListener('click', function(event) {
+  if (!document.getElementById('collapseAbovePage').contains(event.target)) {
+    bsCollapse.hide();
+  }
+});
+
+       }
+      
+  </script>
+
+</body>
+</html>

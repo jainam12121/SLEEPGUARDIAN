@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glass Website</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="static/style.css" />
+  
+
+  </head>
+  <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div id="myModal" class="modal show">
+          <div class="flash-message">
+              {% for message in messages %}
+                {{ message }}
+              {% endfor %}
+          </div>
+      </div>
+    {% endif %}
+  {% endwith %}
+  
+  
+    <!-- <nav>
+        <div class="topnav">
+            <a href="/"><i class="fas fa-car"></i>Sleep Gurdian</a>
+            <a class="active" href="/"><i class="fas fa-home"></i>Home</a>
+            <!-- <a href="#news">News</a> -->
+            <!-- <a href="#"><i class="fas fa-envelope"></i>Contact</a>
+            <!-- <a href="/camera" id="openCamera"><i class="fas fa-camera"></i>Camera</a> -->
+            <!-- <a href="/"><i class="fas fa-info-circle"></i>About</a>
+          </div> -->
+        <!-- </nav> --> -->
+         -->
+         
+          <img src="static\images\WhatsApp Image 2024-01-03 at 13.56.08_d4c2c48c.jpg" alt="Logo" class="logo">
+          <h2 class="title">Sleep Guardian</h2>
+      
+
+
+
+
+
+   
+   
+   
+   
+       
+          
+        <section class="glass"> 
+          <form method="POST" enctype="multipart/form-data" action="/">
+            <div class="box">
+   <h2>Login Here</h3>
+   <div class="radio1">
+       <label for="email">Enter Email</label><br>
+       <input type="email" id="email" name="email" >
+      </div>
+       <div class="radio1">
+
+       <label for="password">Enter Password</label><br>
+       <input type="password" id="password" name="password" >
+      </div>
+       
+     
+  
+   <div class="radio">
+       <label for="individual">Individual</label>
+       <input type="radio" id="individual" name="option" value="1">
+       <label for="organisation">Organisation</label>
+       <input type="radio" id="organisation" name="option" value="2">
+   </div><br>
+   
+   <br>
+   <input type="submit" id="submit" value="Login">
+   <div class="signup">
+       <p>don't have an account? <a href="/register"><u>Register</u></a></p>
+   </div>
+  </div>
+</form>
+
+        
+        </section>
+        
+
+     
+    </main>
+    <div class="circle1"></div>
+    <div class="circle2"></div> 
+
+    <script>
+
+
+
+
+      var modal = document.getElementById("myModal");
+      var span = document.getElementsByClassName("close")[0];
+      
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target != modal) {
+          modal.style.display = "none";
+        }
+      }
+      
+      
+      
+      // When the user visits the page, check if there's a flash message
+      window.onload = function() {
+        modal.style.display = "block";
+      
+        setTimeout(function() {
+          modal.style.display = "none";
+        }, 5000);
+      }
+              </script> 
+  </body>
+</html>

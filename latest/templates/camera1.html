@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <style>
+       body {
+           background: linear-gradient(to right top, #65dfc9, #6cdbeb);
+       }
+       
+       #drowsinessMessage {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid black;
+  z-index: 1000;
+  color: black; /* Add this line */
+}
+
+.myStyle {
+   color: red;
+   background-color: yellow;
+   z-index: 1000;
+}
+.drowsinessDetected {
+  color: green;
+  background-color: lightgreen;
+  z-index: 1000;
+}
+
+.noDrowsiness {
+  color: red;
+  background-color: pink;
+  z-index: 1000;
+}
+
+
+       #videoCam {
+           width: 630px;
+           height: 300px;
+           margin-left: 250px;
+           margin-top: 100px;
+           border: 3px solid #ccc;
+           background: white;
+       }
+       #startBtn {
+           margin-left: 490px;
+           width: 120px;
+           height: 45px;
+           cursor: pointer;
+           font-weight: bold;
+       }
+       #startBtn:hover {
+           background-color: #647C90;
+           color: red;
+       }
+   </style>
+</head>
+<body>
+   <button id="startBtn">Open Camera</button>
+   <video id="videoCam" autoplay></video>
+   <div id="drowsinessMessage"></div>
+    <div id="numFaces"></div>
+    <div id="earValue"></div>
+    <div id="marValue"></div>
+
+   <script>
+       let webcamStream = null;
+       let isWebcamOn = false;
+       const video = document.getElementById('videoCam');
+   
+       document.getElementById('startBtn').addEventListener('click', function(event) {
+           event.preventDefault();
+           toggleWebcam();
+       });
+   
+       function toggleWebcam() {
+           let All_mediaDevices = navigator.mediaDevices;
+   
+           if (!All_mediaDevices || !All_mediaDevices.getUserMedia) {
+               console.log("getUserMedia() not supported.");
+               return;
+           }
+   
+           if (isWebcamOn) {
+               webcamStream.getTracks().forEach(track => track.stop());
+               isWebcamOn = false;
+           } else {
+               All_mediaDevices.getUserMedia({ audio: true, video: true })
+                 .then(function(vidStream) {
+                     video.srcObject = vidStream;
+                     video.onloadedmetadata = function(e) {
+                         video.play();
+                         isWebcamOn = true;
+                         sendFrameToServer();
+                     };
+                     webcamStream = vidStream;
+                 })
+                 .catch(function(e) {
+                     console.log(e.name + ": " + e.message);
+                 });
+           }
+       }
+       let isProcessingFrame = false;
+       let delay = 3000;
+       function delayProcessing() {
+    setTimeout(function() {
+        requestAnimationFrame(sendFrameToServer);
+    }, delay);}
+       function sendFrameToServer() {
+        if (!isWebcamOn || isProcessingFrame) return; // Do not send if webcam is off
+        isProcessingFrame = true;
+           var canvas = document.createElement('canvas');
+           canvas.width = video.videoWidth;
+           canvas.height = video.videoHeight;
+           canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
+           var dataURL = canvas.toDataURL('image/jpeg');
+   
+           fetch('/process_frame', {
+               method: 'POST',
+               headers: {
+                 'Content-Type': 'application/json',
+               },
+               body: JSON.stringify({ image: dataURL })
+           })
+           .then(response => {
+ if (!response.ok) {
+   throw new Error(`HTTP error! status: ${response.status}`);
+ }
+ return response.json();
+})
+           
+.then(data => {
+    console.log('Received data:', data);
+   if (data.drowsiness_detected) {
+       document.getElementById('drowsinessMessage').innerText = 'Drowsiness Alert!';
+       document.getElementById('drowsinessMessage').className = 'drowsinessDetected';
+   } else {
+       document.getElementById('drowsinessMessage').innerText = 'No drowsiness detected.';
+       document.getElementById('drowsinessMessage').className = 'noDrowsiness';
+   }
+   console.log('EAR:', data.ears);
+   console.log('MAR:', data.mars);
+   if ('num_faces' in data) {
+       document.getElementById('numFaces').innerText = 'Number of faces detected: ' + data.num_faces;
+       document.getElementById('numFaces').classList.add('myStyle');
+   } else {
+       document.getElementById('numFaces').innerText = 'Number of faces detected: N/A';
+       document.getElementById('numFaces').classList.add('myStyle');
+   }
+   document.getElementById('earValue').innerText = 'Last EAR: ' + (data.ears && data.ears.length > 0 ? data.ears[data.ears.length - 1] : 'N/A');
+   document.getElementById('earValue').classList.add('myStyle');
+document.getElementById('marValue').innerText = 'Last MAR: ' + (data.mars && data.mars.length > 0 ? data.mars[data.mars.length - 1] : 'N/A');
+document.getElementById('marValue').classList.add('myStyle');
+
+
+   isProcessingFrame = false; // Set flag to false when processing is done
+   delayProcessing();
+})
+;
+ 
+       }
+      
+   </script>
+   
+</body>
+</html>

@@ -1,0 +1,262 @@
+{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+  }
+  body{
+    background-color: black;
+  }
+  .topnav {
+    /* background: linear-gradient(to right top, #65dfc9, #6cdbeb); */
+    background-color: black;
+    overflow: hidden;
+    height:30px;
+    text-decoration: none;
+    padding:20px
+   
+  
+  }
+  .logout-button {
+    float: right; /* Aligns the button to the right */
+     background:black;
+    overflow: hidden;
+    height:30px;
+    text-decoration: none;
+    padding:20px
+  }
+  
+  
+  
+  
+  a{
+  padding:20px;
+  text-decoration: none;
+  
+  font-weight: 30px;
+  font-size: 25px;
+  color: #426696;
+    font-weight: 600;
+    opacity: 1;
+    position: relative;
+  }
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black; 
+    border-radius:50px;
+    
+  }
+    
+  
+  h1 {
+    color: #426696;
+    font-weight: 600;
+    font-size: 3rem;
+    opacity: 0.8;
+  }
+  h2,
+  p {
+    color: #658ec6;
+    font-weight: 500;
+    opacity: 0.8;
+  }
+  
+  h3 {
+    color: #426696;
+    font-weight: 600;
+    opacity: 0.8;
+   
+  }
+  
+  main {
+    font-family: "Poppins", sans-serif;
+    min-height: 100vh;
+    background:black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .glass {
+    background: white;
+    min-height: 80vh;
+    width: 30%;
+    background: linear-gradient(
+      to right bottom,
+      rgba(255, 255, 255, 0.7),
+      rgba(255, 255, 255, 0.3)
+    );
+    border-radius: 2rem;
+    z-index: 2;
+    backdrop-filter: blur(2rem);
+    display: flex;
+  
+    
+  
+  }
+  h3{
+    margin-left:130px;
+    margin-top:10px;
+    font-size:25px;
+   
+  }
+  .circle1,
+  .circle2 {
+    background: white;
+    background: linear-gradient(
+      to right bottom,
+      rgba(255, 255, 255, 0.8),
+      rgba(255, 255, 255, 0.3)
+    );
+    height: 20rem;
+    width: 20rem;
+    position: absolute;
+    border-radius: 50%;
+  }
+  
+  .circle1 {
+    top: 5%;
+    right: 15%;
+  }
+  .circle2 {
+    bottom: 5%;
+    left: 10%;
+  }
+  input[type=email],input[type=text]{
+    margin-left:90px;
+    text-align: center;
+    color: #426696;
+    height:30px;
+    width:180px;
+    border:2px solid  #426696;
+    border-radius: 5px;
+    font-size: 20px;
+  }
+  #password{
+    margin-left:90px;
+    text-align: center;
+    color: #426696;
+    height:30px;
+    width:180px;
+    border:2px solid  #426696;
+    border-radius: 5px;
+    font-size: 20px;
+  }
+  .radio1 label{
+    
+    margin-left: 120px;
+    color: #426696;
+    font-size: 20px;
+  }  
+  .radio label{
+    color:#426696;
+    margin-left:45px;
+    font-size: 20px;
+  }
+  input[type=radio]{
+    width:17px;
+    height:17px;
+    border-color: #426696;
+    background-color: blueviolet;
+  }
+  input[type=submit]{
+    margin-left:90px;
+    text-align: center;
+    color: #426696;
+    height:50px;
+    width:200px;
+    border:2px solid  #426696;
+    border-radius: 5px;
+    font-size:20px;
+  }
+  input[type=submit]:hover{
+    background-color: #65dfc9;
+    color:white;
+    border:white;
+    cursor:pointer;
+    
+  }
+  input[type=radio]:hover{
+    cursor:pointer;
+  }
+  
+  .signup{
+    margin-left:30px;
+  }
+  .forget{
+    margin-left:17px;
+    color: #426696;
+    font-size: 17px;
+  }
+  .forget a{
+  
+    font-size: 17px;
+    font-weight: 5px;
+  }
+  /* input[type=remember]{
+    font-size: 20px;
+  } */
+  
+   /* Large screens (laptops and desktops) */
+  @media only screen and (min-width: 1025px) {
+  .glass {
+    width: 25%;
+  }
+  
+  h3 {
+    margin-left: 150px;
+    font-size: 28px;
+    padding-top: 20px;
+  }
+  
+  .circle1,
+  .circle2 {
+    height: 25rem;
+    width: 25rem;
+  }
+  
+  input[type=email],
+  input[type=text] {
+    margin-left: 90px;
+    width: 250px;
+  }
+  
+  .radio1 label {
+    margin-left: 180px;
+  }
+  
+  .radio label {
+    margin-left: 80px;
+  }
+  
+  input[type=submit] {
+    margin-left: 90px;
+    width: 250px;
+  }
+  
+  .signup {
+    margin-left: 50px;
+    font-size: 20px;
+  }
+  
+  .forget {
+    margin-left: 80px;
+  }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+     

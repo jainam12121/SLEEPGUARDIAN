@@ -1,0 +1,254 @@
+html, body {
+	width:100%;
+	height:100%;
+}
+body {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    /* 	background: url(bg.jpg); */
+/*     background-image: linear-gradient(to right top, #1db9ff, #a2a0ff, #fb7ad4, #ff677a, #f48603); */
+  background:black;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+h2{
+  color:white;
+  text-align: center;
+  margin-top: -60px;
+  margin-left: 2%;
+ 
+}
+
+.logo {
+	 /* Align the logo to the left */
+    width:  100px; /* Set the width of the logo */
+    height: 100px; /* Maintain aspect ratio */
+    /* Space between the logo and the title */
+	margin-left: 34%;
+}
+
+
+.box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	width: 400px;
+	padding: 40px;
+	background-color:rgba(255, 255, 255, 0.5);
+	box-sizing: border-box;
+	box-shadow: 0 15px 25px rgba(0,0,0,.1);
+	border-radius: 10px;
+}
+.box h2 {
+	margin: 0 0 30px;
+	padding: 0;
+	color: #FFF;
+	text-align: center;
+}
+
+.box .radio1 {
+	position: relative;
+}
+.box .radio1 input {
+	width: 100%;
+	padding: 10px 0;
+	font-size: 16px;
+	color: black;
+	letter-spacing: 1px;
+	margin-bottom: 30px;
+	border: none;
+	border-bottom: 1px solid #FFF;
+	outline: none;
+	background: transparent;
+}
+.box .radio1 label {
+	position: absolute;
+	top: 0;
+	left: 0;
+	padding: 10px 0;
+	font-size: 16px;
+	color:black;
+	pointer-events: none;
+	transition: .5s;
+	animation: LabelOnLoad 1s forwards 0s ease;
+}
+@keyframes LabelOnLoad{
+    0%{
+        transform: rotate(0) translateY(-19px);
+        opacity: 0;
+        }
+    100%{
+        transform: rotate(0) translateY(0);
+        opacity: 1;
+        }
+}
+.box .inputBox input:focus ~ label, 
+.box .inputBox input:valid ~ label {
+	top: -19px;
+	left:0;
+	color: #03A9F4;
+	font-size: 12px;
+}
+.box input[type='submit'] {
+	background: transparent;
+	border: none;
+	outline: none;
+	color: white;
+	background: black;
+	padding: 10px 20px;
+	cursor: pointer;
+	border-radius: 5px;
+	font-size: 14px;
+  align-items:center;
+}
+.box input[type='submit']:hover {
+	background-color: rgba(3, 169, 244, 0.7);
+	/* Base styles for the modal */
+.modal {
+	position: fixed;
+	top:  50%;
+	left:  50%;
+	transform: translate(-50%, -50%);
+	z-index:  1050;
+	display: none; /* Hidden by default */
+	overflow: auto;
+	outline:  0;
+  }
+  
+  /* Modal Dialog */
+  .modal-dialog {
+	max-width:  500px;
+	margin:  1.75rem auto;
+  }
+  
+  /* Modal Content */
+  .modal-content {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width:  100%;
+	pointer-events: auto;
+	background-color: #fff;
+	background-clip: padding-box;
+	border:  1px solid rgba(0,0,0,.2);
+	border-radius: .3rem;
+	outline:  0;
+  }
+  
+  /* Modal Header */
+  .modal-header {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	padding:  1rem  1rem;
+	border-bottom:  1px solid #dee2e6;
+	border-top-left-radius: calc(.3rem -  1px);
+	border-top-right-radius: calc(.3rem -  1px);
+  }
+  
+  /* Modal Body */
+  .modal-body {
+	position: relative;
+	flex:  1  1 auto;
+	padding:  1rem;
+  }
+  
+  /* Modal Footer */
+  .modal-footer {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: flex-end;
+	padding: .75rem;
+	border-top:  1px solid #dee2e6;
+	border-bottom-right-radius: calc(.3rem -  1px);
+	border-bottom-left-radius: calc(.3rem -  1px);
+  }
+  
+  /* Close Button */
+  .close {
+	padding: .5rem;
+	margin: -.5rem -.5rem -.5rem auto;
+	font-size:  1.25rem;
+	line-height:  1;
+	color: #000;
+	text-shadow:  0  1px  0 #fff;
+	opacity: .5;
+  }
+  
+  /* Flash Message Styles */
+  .flash-message {
+	/* position: fixed; */
+  bottom: 600px;
+  left: 30%;
+  width: 40%;
+  height: 40%;
+  display:flex;
+  background-color: #28a745; /* Green background */
+  color: white; /* White text */
+  padding: 10px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+  z-index: 100;
+  }
+  
+  /* Optional: Add a hover effect for the close button */
+  .close:hover {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+  }
+  
+}
+.radio{
+  color:white;
+  align-items: center;
+  justify-content: center;
+  margin-left:45px;
+  font-size:20px;
+}
+p{
+  color:white;
+  
+}
+a{
+  text-decoration:none;
+  font-weight:bold;
+}
+@media(max-width: 720px){
+	.box {
+		width: 80%;
+	}
+}
+
+.modal show{
+    position: relative;
+    top:  110px;
+    width:  320px;
+    display: block;
+    margin: auto;
+    text-align: center;
+    font-family: "Source Sans Pro", sans-serif;
+}
+.flash-message{
+	position: fixed;
+	bottom: 600px;
+	left: 30%;
+	width: 40%;
+	background-color: #28a745; /* Green background */
+	color: white; /* White text */
+	padding: 10px;
+	border-radius: 5px;
+	text-align: center;
+	box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.1);
+	z-index: 100;
+
+
+}
+.modal:empty {
+	display: none;
+  }

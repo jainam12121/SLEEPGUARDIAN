@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glass Website</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="static/register.css" />
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"> -->
+  
+
+  </head>
+  <body>
+    <!-- <div id="flash-messages">
+      {% with messages = get_flashed_messages() %}
+      {% if messages %}
+          <div class="alert alert-danger">
+              {% for message in messages %}
+                  <p>{{ message }}</p>
+              {% endfor %}
+          </div>
+      {% endif %}
+      {% endwith %}
+    </div> -->
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div id="myModal" class="modal show">
+          <div class="flash-message">
+              {{ messages[0] }}
+            </div>
+      </div>
+    {% endif %}
+  {% endwith %}
+
+
+ <section class="glass"> 
+          <form method="POST" enctype="multipart/form-data">
+            
+        <div class="container2">
+        <label for="name">Name:</label><br>
+                <input type="text" id="ind_name" name="ind_name" required><br>
+                <label for="username">userName:</label><br>
+                <input type="text" id="username" name="username" required><br>
+                <label for="ind_email">Email:</label><br>
+                <input type="email" id="ind_email" name="ind_email" required><br>
+
+                <label for="ind_gender">Gender:</label><br>
+<select id="ind_gender" name="ind_gender" required>
+  <option value="Male">Male</option>
+  <option value="Female">Female</option>
+  <option value="Other">Other</option>
+</select><br>
+
+                <label for="ind_DOB">DOB:</label><br>
+                <input type="date" id="ind_DOB" name="ind_DOB" required><br>
+                <label for="ind_email">contact:</label><br>
+                <input type="text" id="ind_cont" name="ind_cont" required><br>
+                <span id="ind_cont_error"></span>
+                <label for="ind_ADD">Address:</label><br>
+                <input type="text" id="ind_ADDRESS" name="ind_ADDRESS" required><br>
+                <label for="ind_password">Password:</label><br>
+                <input type="password" id="ind_password" name="ind_password" required>
+                <label for="org_confirm_password">Confirm Password:</label><br>
+                <input type="password" id="ind_confirm_password" name="ind_confirm_password" required placeholder="Enter your password again"><br>
+                <br>
+
+                <label for="organization" class="Org">Organization Name:</label><br>
+<select id="organization" name="organization">
+{% for organization_name in organizations %}
+   <option value="{{ organization_name }}">{{ organization_name }}</option>
+{% endfor %}
+</select>
+
+
+                
+
+               <br>
+               
+                <input type="submit" value="Register "><br>
+            </div>
+               
+        </form>
+        </section>
+      
+         
+              
+    
+    
+    <!-- <script>
+      var messages = {};
+      {% for category, message in get_flashed_messages(with_categories=true) %}
+          messages['{{category}}'] = '{{message}}';
+      {% endfor %}
+      document.getElementById('ind_cont_error').innerText = messages['ind_cont_error'] || '';
+      // Repeat for other fields
+     </script> -->
+     
+     <script>
+
+ var modal = document.getElementById("myModal");
+      var span = document.getElementsByClassName("close")[0];
+      
+      // When the user clicks anywhere outside of the modal, close it
+      window.onclick = function(event) {
+        if (event.target != modal) {
+          modal.style.display = "none";
+        }
+      }
+      
+      
+      
+      // When the user visits the page, check if there's a flash message
+      window.onload = function() {
+        modal.style.display = "block";
+      
+        setTimeout(function() {
+          modal.style.display = "none";
+        }, 5000);
+      }
+              </script> 
+   
+  </body>
+</html>

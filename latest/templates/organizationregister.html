@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Home</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="/static/register.css" />
+
+    <style>.container{
+        margin-top:50px;
+      }
+      </style>
+  </head>
+ <body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div id="myModal" class="modal show">
+          <div class="flash-message">
+              {{ messages[0] }}
+            </div>
+      </div>
+    {% endif %}
+  {% endwith %}
+    <div class="container">
+      <div class="center"> 
+         
+          <form method="POST" enctype="multipart/form-data"action="/organisationregister">
+            <h1>Register</h1>
+              <div class="txt_field">
+                <label for="org_name">Organization Name:</label><br>
+                <input type="text" id="org_name" name="org_name" required><br>
+              
+              </div>
+              <div class="txt_field">
+                <label for="username">UserName:</label><br>
+                <input type="text" id="username" name="username" required><br>
+              </div>
+      
+              <div class="txt_field">
+                <label for="org_email">Organization Email:</label><br>
+                <input type="email" id="org_email" name="org_email" required><br>
+              </div>
+              <div class="txt_field">
+                <label for="org_address">Organization address:</label><br>
+                <input type="text" id="org_add" name="org_add" required><br></div>
+                    <div class="txt_field">
+                        <label for="org_contact">Organization contact:</label><br>
+                        <input type="text" id="org_cont" name="org_cont" required><br>
+                        <span id="ind_cont_error"></span>
+                        </div>
+                        <div class="txt_field">
+                            <label for="org_password">Password:</label><br>
+                            <input type="password" id="org_password" name="org_password" required><br>
+                        </div>
+                        <div class="txt_field">
+                            <label for="org_confirm_password">Confirm Password:</label><br><br><br>
+                            <input type="password" id="org_confirm_password" name="org_confirm_password" required placeholder="Enter your password again"><br>
+                </div>
+               
+                  <div class="txt_field">
+                    <label for="org_identity">Upload Valid Proof:</label><br><br><br>
+                   <br> <input type="file" id="org_identity" name="org_identity" required><br>
+</div>
+
+           <input type="submit" value="Register ">
+         
+            
+              
+          </form>
+      </div>
+  </div>
+  <script>
+
+    var modal = document.getElementById("myModal");
+         var span = document.getElementsByClassName("close")[0];
+         
+         // When the user clicks anywhere outside of the modal, close it
+         window.onclick = function(event) {
+           if (event.target != modal) {
+             modal.style.display = "none";
+           }
+         }
+         
+         
+         
+         // When the user visits the page, check if there's a flash message
+         window.onload = function() {
+           modal.style.display = "block";
+         
+           setTimeout(function() {
+             modal.style.display = "none";
+           }, 5000);
+         }
+                 </script>
+  </body>
+</html>
+apne ko thik kya karna hai

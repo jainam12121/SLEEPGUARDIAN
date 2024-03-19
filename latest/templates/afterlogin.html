@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Logged In</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glass Website</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <link rel="stylesheet" href="static/style.css" />
+  
+
+  </head>
+  <body>
+    <nav>
+        <div class="topnav">
+            <a href="/"><i class="fas fa-car"></i>Sleep Gurdian</a>
+            <a class="active" href="/"><i class="fas fa-home"></i>Home</a>
+            <!-- <a href="#news">News</a> -->
+            <a href="#"><i class="fas fa-envelope"></i>Contact</a>
+            <a href="/camera" id="openCamera"><i class="fas fa-camera"></i>Camera</a>
+            <a href="/"><i class="fas fa-info-circle"></i>About</a>
+            <a href="/logout" class="logout-button">Logout</a>
+          </div>
+        </nav>
+        <main>
+       
+          
+          <section class="glass"> 
+            <div class="info">
+              {% if user_type == '1' %}
+              <!-- Display individual data here -->
+              <h2>Name : {{ data.ind_name }}</h2>
+              <p>Username: {{ data.username }}</p>
+              <p>Email: {{ data.ind_email }}</p>
+              <p>Gender: {{ data.ind_gender }}</p>
+              <p>Date of Birth: {{ data.ind_DOB }}</p>
+              <p>Contact: {{ data.ind_cont }}</p>
+              <p>Address: {{ data.ind_ADDRESS }}</p>
+              <img class="image" src="{{ data.ind_identity }}"> <!-- Display individual image here -->
+              {% else %}
+              <!-- Display organisation data here -->
+              <h2>Organization Name: {{ data.org_name }}</h2>
+        <p>Username: {{ data.username }}</p>
+        <p>Email: {{ data.org_email }}</p>
+        <p>Address: {{ data.org_address }}</p>
+        <p>Contact: {{ data.org_cont }}</p>
+        <img class="image" src="{{ data.org_identity }}"> 
+              {% endif %}
+             </div> 
+             
+      </main>
+      </body>
+      </html>
