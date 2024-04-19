@@ -21,7 +21,7 @@ from flask_login import LoginManager
 from twilio.rest import Client
 
 try:
-    cluster = MongoClient(  "ENTER YOUR MONGODB URL HERE")
+    cluster = MongoClient(  "mongodb+srv://jainamdp2002:zxXd3LZSW7rfUi57@dds.rpi9euq.mongodb.net/?retryWrites=true&w=majority")
     db = cluster["Cluster0"]
     orgg = db["organisation"]
     
@@ -32,13 +32,13 @@ except Exception as e:
 # db.organisation.create_index("email", unique=True)
 # db.individual.create_index("username", unique=True)
 # db.individual.create_index("email", unique=True)
-db.individual.drop_index("username_1")
+# db.individual.drop_index("username_1")
 db.individual.create_index("username")
-db.individual.drop_index("email_1")
+# db.individual.drop_index("email_1")
 db.individual.create_index("email")
-db.organisation.drop_index("username_1")
+# db.organisation.drop_index("username_1")
 db.organisation.create_index("username")
-db.organisation.drop_index("email_1")
+# db.organisation.drop_index("email_1")
 db.organisation.create_index("email")
 
 app = Flask(__name__)
@@ -50,23 +50,23 @@ app = Flask(__name__)
 
 
 
-app.config['SECRET_KEY'] = 'your_secret_key' # Make sure to set a secret key
+# app.config['SECRET_KEY'] = '3f28fccfea0476c6b7c6c2ffa02c0e4b' # Make sure to set a secret key
 
-sess = Session()
-sess.init_app(app)
+# sess = Session()
+# sess.init_app(app)
 
 
-# app.config['SESSION_REDIS'] = redis.from_url('redis://localhost:6379')
+# app.config ['SESSION_REDIS'] = redis.from_url('redis://localhost:6379')
 
 # Initialize Flask-Session within an application context
-with app.app_context():
-    sess = Session()
-    sess.init_app(app)
+# with app.app_context():
+#     sess = Session()
+#     sess.init_app(app)
 
 app.static_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'static')
 app.template_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app.wsgi_app = ProxyFix(app.wsgi_app)
-app.secret_key = 'your secret key'
+app.secret_key = '3f28fccfea0476c6b7c6c2ffa02c0e4b'
 secret_key = os.urandom(24)
 # Load the pre-trained models and define constants
 face_cascade = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
@@ -75,8 +75,8 @@ smile_cascade = cv2.CascadeClassifier('haarcascade_smile.xml')
 predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
 EYE_AR_THRESH = 0.22
 MOUTH_OPEN_THRESH = 0.55
-account_sid = 'ENTER YOUR ACCOUNT SID HERE'
-auth_token = 'ENTER YOUR AUTH TOKEN HERE'
+account_sid = 'AC1ab6a681eaac1ef37e7d40fc88399d4d'
+auth_token = 'd92c830a4697dccb7c620c3f91c4b5fe'
 client = Client(account_sid, auth_token)
 # Define the calculate_ear and calculate_mar functions
 def calculate_ear(eye):
@@ -167,7 +167,7 @@ def process_frame():
         # playsound('/path/to/your/sound/file.mp3', block=False)
         message = client.messages.create(
             body="Drowsiness detected. Please take a break.",
-            from_=" ENTER YOUR NUMBER", # Your Twilio phone number
+            from_="+12315447420", # Your Twilio phone number
             to=ind_cont # Driver's phone number
         )
         print(f"Message sent to driver: {message.sid}")
@@ -175,7 +175,7 @@ def process_frame():
             # # Send SMS to the organization
             # message = client.messages.create(
             #     body="Drowsiness detected for a driver. Please check.",
-            #     from_="ENTER YOUR NUMBER ", # Your Twilio phone number
+            #     from_="+12315447420", # Your Twilio phone number
             #     to=org_cont # Organization's phone number
             # )
             # print(f"Message sent to organization: {message.sid}")
