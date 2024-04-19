@@ -21,7 +21,8 @@ from flask_login import LoginManager
 from twilio.rest import Client
 
 try:
-    cluster = MongoClient(  "mongosh "mongodb+srv://dds.rpi9euq.mongodb.net/" --apiVersion 1 --username jainamdp2002")
+    cluster = MongoClient(  "mongodb+srv://jainam12121:Dine$h1234@cluster-test.fndbj.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+")
     db = cluster["Cluster0"]
     orgg = db["organisation"]
     
